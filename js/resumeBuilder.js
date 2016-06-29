@@ -20,10 +20,10 @@ var bio = {
         $('#header').append(HTMLcontactsStart);
 
         for (var contact in bio.contacts) {
-            var formatted = HTMLcontactGeneric.replace('%contact%', contact);
-            formatted = formatted.replace('%data%', bio.contacts[contact]);
-            $('#contacts').append(formatted);
-            $('#footerContacts').append(formatted);
+            if (bio.contacts.hasOwnProperty(contact)){
+            	var formatted = HTMLcontactGeneric.replace('%contact%', contact).replace('%data%', bio.contacts[contact]);
+	            $('#contacts, #footerContacts').append(formatted);
+            }
         }
 
         replaceHelper(HTMLbioPic, bio.biopic, '#header');
@@ -43,46 +43,57 @@ var education = {
         "name": "UCLA Extension",
         "location": "Los Angeles, CA",
         "degree": "Certificate",
-        "majors": "Design Communication Arts",
+        "majors": ["Design Communication Arts", "Advanced Design Graphics"],
         "dates": "2014-2017",
         "url": "www.uclaextension.com"
     }, {
         "name": "Estacio Universities",
         "location": "Belo Horizonte, Brazil",
         "degree": "Bachelor",
-        "majors": "Advertising",
+        "majors": ["Advertising"],
         "dates": "2002-2006",
         "url": "www.uclaextension.com"
     }],
-    "onlineCourses": {
+    "onlineCourses": [{
         "title": "Front End Web Developer",
         "school": "Udacity",
         "dates": "2016",
         "url": "www.udacity.com"
-    },
+    }],
     "display": function() {
-        for (var school in education.schools) {
+    	education.schools.forEach(function(val) {
             $('#education').append(HTMLschoolStart);
 
-            var formattedSchoolName = HTMLschoolName.replace('%data%', education.schools[school].name);
-            var formattedSchoolDegree = HTMLschoolDegree.replace('%data%', education.schools[school].degree);
-            var formattedSchoolNameDegree = formattedSchoolName + formattedSchoolDegree;
+            var formattedSchoolNameDegree = HTMLschoolName.replace('%data%', val.name) + HTMLschoolDegree.replace('%data%', val.degree);
             $('.education-entry:last').append(formattedSchoolNameDegree);
-            replaceHelper(HTMLschoolDates, education.schools[school].dates, '.education-entry:last');
-            replaceHelper(HTMLschoolLocation, education.schools[school].location, '.education-entry:last');
-            replaceHelper(HTMLschoolMajor, education.schools[school].majors, '.education-entry:last');
-        }
+
+            replaceHelper(HTMLschoolDates, val.dates, '.education-entry:last');
+
+            replaceHelper(HTMLschoolLocation, val.location, '.education-entry:last');
+
+            //If only one Major
+            if(val.majors.length === 1){
+            	replaceHelper(HTMLschoolMajor, val.majors, '.education-entry:last');
+            //If multiple Majors
+            } else {
+            	var formattedMajors = val.majors.join(', ');
+            	//Convert to plural
+            	var formattedMajorHelper = HTMLschoolMajor.replace('Major', 'Majors');
+            	replaceHelper(formattedMajorHelper, formattedMajors, '.education-entry:last');
+            } //Not sure if I should create an else if there are no Majors.
+        });
 
         $('#education').append(HTMLonlineClasses);
 
-        $('#education').append(HTMLschoolStart);
+        education.onlineCourses.forEach(function(val) {
+	        $('#education').append(HTMLschoolStart);
 
-        var formattedCouseName = HTMLonlineTitle.replace('%data%', education.onlineCourses.title);
-        var formattedOnlineCourse = HTMLonlineSchool.replace('%data%', education.onlineCourses.school);
-        var formattedOnliveCourseSchool = formattedCouseName + formattedOnlineCourse;
-        $('.education-entry:last').append(formattedOnliveCourseSchool);
-        replaceHelper(HTMLonlineDates, education.onlineCourses.dates, '.education-entry:last');
-        replaceHelper(HTMLonlineURL, education.onlineCourses.url, '.education-entry:last');
+	        $('.education-entry:last').append(HTMLonlineTitle.replace('%data%', val.title) + HTMLonlineSchool.replace('%data%', val.school));
+
+	        replaceHelper(HTMLonlineDates, val.dates, '.education-entry:last');
+
+	        replaceHelper(HTMLonlineURL, val.url, '.education-entry:last');
+	    });
     }
 };
 
@@ -166,11 +177,11 @@ work.display();
 projects.display();
 education.display();
 
-$(document).click(function(loc) { // your code goes here
+/*$(document).click(function(loc) {
     var x = loc.pageX;
     var y = loc.pageY;
     logClicks(x, y);
-});
+});*/
 
 //MAP
 $('#mapDiv').append(googleMap);
