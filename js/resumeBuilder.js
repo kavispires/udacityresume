@@ -119,16 +119,18 @@ var work = {
     }],
     "display": function() {
         for (var job in work.jobs) {
-            $('#workExperience').append(HTMLworkStart);
+        	if (work.jobs.hasOwnProperty(job)){
+	            $('#workExperience').append(HTMLworkStart);
 
-            var formattedEmployer = HTMLworkEmployer.replace('%data%', work.jobs[job].employer);
-            var formattedTitle = HTMLworkTitle.replace('%data%', work.jobs[job].title);
-            var formattedEmployerTitle = formattedEmployer + formattedTitle;
-            $('.work-entry:last').append(formattedEmployerTitle);
+	            var formattedEmployer = HTMLworkEmployer.replace('%data%', work.jobs[job].employer);
+	            var formattedTitle = HTMLworkTitle.replace('%data%', work.jobs[job].title);
+	            var formattedEmployerTitle = formattedEmployer + formattedTitle;
+	            $('.work-entry:last').append(formattedEmployerTitle);
 
-            replaceHelper(HTMLworkDates, work.jobs[job].dates, '.work-entry:last');
-            replaceHelper(HTMLworkLocation, work.jobs[job].location, '.work-entry:last');
-            replaceHelper(HTMLworkDescription, work.jobs[job].description, '.work-entry:last');
+	            replaceHelper(HTMLworkDates, work.jobs[job].dates, '.work-entry:last');
+	            replaceHelper(HTMLworkLocation, work.jobs[job].location, '.work-entry:last');
+	            replaceHelper(HTMLworkDescription, work.jobs[job].description, '.work-entry:last');
+	        }
         }
     }
 };
@@ -147,19 +149,19 @@ var projects = {
     }],
     "display": function() {
         for (var project in projects.projects) {
-            $('#projects').append(HTMLprojectStart);
+        	if (projects.projects.hasOwnProperty(project)){
+	            $('#projects').append(HTMLprojectStart);
 
-            replaceHelper(HTMLprojectTitle, projects.projects[project].title, '.project-entry:last');
+	            replaceHelper(HTMLprojectTitle, projects.projects[project].title, '.project-entry:last');
 
-            replaceHelper(HTMLprojectDates, projects.projects[project].dates, '.project-entry:last');
+	            replaceHelper(HTMLprojectDates, projects.projects[project].dates, '.project-entry:last');
 
-            replaceHelper(HTMLprojectDescription, projects.projects[project].description, '.project-entry:last');
+	            replaceHelper(HTMLprojectDescription, projects.projects[project].description, '.project-entry:last');
 
-            if (projects.projects[project].images.length > 0) {
-                for (var image in projects.projects[project].images) {
-                    replaceHelper(HTMLprojectImage, projects.projects[project].images[image], '.project-entry:last');
+            	for (var i = 0; i < projects.projects[project].images.length; i++){
+            	    replaceHelper(HTMLprojectImage, projects.projects[project].images[i], '.project-entry:last');
                 }
-            }
+	        }
         }
     }
 };
