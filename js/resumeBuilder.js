@@ -20,9 +20,9 @@ var bio = {
         $('#header').append(HTMLcontactsStart);
 
         for (var contact in bio.contacts) {
-            if (bio.contacts.hasOwnProperty(contact)){
-            	var formatted = HTMLcontactGeneric.replace('%contact%', contact).replace('%data%', bio.contacts[contact]);
-	            $('#contacts, #footerContacts').append(formatted);
+            if (bio.contacts.hasOwnProperty(contact)) {
+                var formatted = HTMLcontactGeneric.replace('%contact%', contact).replace('%data%', bio.contacts[contact]);
+                $('#contacts, #footerContacts').append(formatted);
             }
         }
 
@@ -33,7 +33,7 @@ var bio = {
         $('#header').append(HTMLskillsStart);
 
         bio.skills.forEach(function(val) {
-        	replaceHelper(HTMLskills, val, '#skills');
+            replaceHelper(HTMLskills, val, '#skills');
         });
     }
 };
@@ -61,7 +61,7 @@ var education = {
         "url": "www.udacity.com"
     }],
     "display": function() {
-    	education.schools.forEach(function(val) {
+        education.schools.forEach(function(val) {
             $('#education').append(HTMLschoolStart);
 
             var formattedSchoolNameDegree = HTMLschoolName.replace('%data%', val.name) + HTMLschoolDegree.replace('%data%', val.degree);
@@ -72,28 +72,28 @@ var education = {
             replaceHelper(HTMLschoolLocation, val.location, '.education-entry:last');
 
             //If only one Major
-            if(val.majors.length === 1){
-            	replaceHelper(HTMLschoolMajor, val.majors, '.education-entry:last');
-            //If multiple Majors
+            if (val.majors.length === 1) {
+                replaceHelper(HTMLschoolMajor, val.majors, '.education-entry:last');
+                //If multiple Majors
             } else {
-            	var formattedMajors = val.majors.join(', ');
-            	//Convert to plural
-            	var formattedMajorHelper = HTMLschoolMajor.replace('Major', 'Majors');
-            	replaceHelper(formattedMajorHelper, formattedMajors, '.education-entry:last');
+                var formattedMajors = val.majors.join(', ');
+                //Convert to plural
+                var formattedMajorHelper = HTMLschoolMajor.replace('Major', 'Majors');
+                replaceHelper(formattedMajorHelper, formattedMajors, '.education-entry:last');
             } //Not sure if I should create an else if there are no Majors.
         });
 
         $('#education').append(HTMLonlineClasses);
 
         education.onlineCourses.forEach(function(val) {
-	        $('#education').append(HTMLschoolStart);
+            $('#education').append(HTMLschoolStart);
 
-	        $('.education-entry:last').append(HTMLonlineTitle.replace('%data%', val.title) + HTMLonlineSchool.replace('%data%', val.school));
+            $('.education-entry:last').append(HTMLonlineTitle.replace('%data%', val.title) + HTMLonlineSchool.replace('%data%', val.school));
 
-	        replaceHelper(HTMLonlineDates, val.dates, '.education-entry:last');
+            replaceHelper(HTMLonlineDates, val.dates, '.education-entry:last');
 
-	        replaceHelper(HTMLonlineURL, val.url, '.education-entry:last');
-	    });
+            replaceHelper(HTMLonlineURL, val.url, '.education-entry:last');
+        });
     }
 };
 
@@ -119,18 +119,18 @@ var work = {
     }],
     "display": function() {
         for (var job in work.jobs) {
-        	if (work.jobs.hasOwnProperty(job)){
-	            $('#workExperience').append(HTMLworkStart);
+            if (work.jobs.hasOwnProperty(job)) {
+                $('#workExperience').append(HTMLworkStart);
 
-	            var formattedEmployer = HTMLworkEmployer.replace('%data%', work.jobs[job].employer);
-	            var formattedTitle = HTMLworkTitle.replace('%data%', work.jobs[job].title);
-	            var formattedEmployerTitle = formattedEmployer + formattedTitle;
-	            $('.work-entry:last').append(formattedEmployerTitle);
+                var formattedEmployer = HTMLworkEmployer.replace('%data%', work.jobs[job].employer);
+                var formattedTitle = HTMLworkTitle.replace('%data%', work.jobs[job].title);
+                var formattedEmployerTitle = formattedEmployer + formattedTitle;
+                $('.work-entry:last').append(formattedEmployerTitle);
 
-	            replaceHelper(HTMLworkDates, work.jobs[job].dates, '.work-entry:last');
-	            replaceHelper(HTMLworkLocation, work.jobs[job].location, '.work-entry:last');
-	            replaceHelper(HTMLworkDescription, work.jobs[job].description, '.work-entry:last');
-	        }
+                replaceHelper(HTMLworkDates, work.jobs[job].dates, '.work-entry:last');
+                replaceHelper(HTMLworkLocation, work.jobs[job].location, '.work-entry:last');
+                replaceHelper(HTMLworkDescription, work.jobs[job].description, '.work-entry:last');
+            }
         }
     }
 };
@@ -149,19 +149,19 @@ var projects = {
     }],
     "display": function() {
         for (var project in projects.projects) {
-        	if (projects.projects.hasOwnProperty(project)){
-	            $('#projects').append(HTMLprojectStart);
+            if (projects.projects.hasOwnProperty(project)) {
+                $('#projects').append(HTMLprojectStart);
 
-	            replaceHelper(HTMLprojectTitle, projects.projects[project].title, '.project-entry:last');
+                replaceHelper(HTMLprojectTitle, projects.projects[project].title, '.project-entry:last');
 
-	            replaceHelper(HTMLprojectDates, projects.projects[project].dates, '.project-entry:last');
+                replaceHelper(HTMLprojectDates, projects.projects[project].dates, '.project-entry:last');
 
-	            replaceHelper(HTMLprojectDescription, projects.projects[project].description, '.project-entry:last');
+                replaceHelper(HTMLprojectDescription, projects.projects[project].description, '.project-entry:last');
 
-            	for (var i = 0; i < projects.projects[project].images.length; i++){
-            	    replaceHelper(HTMLprojectImage, projects.projects[project].images[i], '.project-entry:last');
+                for (var i = 0; i < projects.projects[project].images.length; i++) {
+                    replaceHelper(HTMLprojectImage, projects.projects[project].images[i], '.project-entry:last');
                 }
-	        }
+            }
         }
     }
 };
