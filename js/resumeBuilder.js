@@ -26,16 +26,15 @@ var bio = {
             $('#footerContacts').append(formatted);
         }
 
-
         replaceHelper(HTMLbioPic, bio.biopic, '#header');
 
         replaceHelper(HTMLwelcomeMsg, bio.welcomeMessage, '#header');
 
         $('#header').append(HTMLskillsStart);
 
-        for (var skill in bio.skills) {
-            replaceHelper(HTMLskills, bio.skills[skill], '#skills');
-        }
+        bio.skills.forEach(function(val) {
+        	replaceHelper(HTMLskills, val, '#skills');
+        });
     }
 };
 
@@ -44,14 +43,14 @@ var education = {
         "name": "UCLA Extension",
         "location": "Los Angeles, CA",
         "degree": "Certificate",
-        "major": "Design Communication Arts",
+        "majors": "Design Communication Arts",
         "dates": "2014-2017",
         "url": "www.uclaextension.com"
     }, {
         "name": "Estacio Universities",
         "location": "Belo Horizonte, Brazil",
         "degree": "Bachelor",
-        "major": "Advertising",
+        "majors": "Advertising",
         "dates": "2002-2006",
         "url": "www.uclaextension.com"
     }],
@@ -71,7 +70,7 @@ var education = {
             $('.education-entry:last').append(formattedSchoolNameDegree);
             replaceHelper(HTMLschoolDates, education.schools[school].dates, '.education-entry:last');
             replaceHelper(HTMLschoolLocation, education.schools[school].location, '.education-entry:last');
-            replaceHelper(HTMLschoolMajor, education.schools[school].major, '.education-entry:last');
+            replaceHelper(HTMLschoolMajor, education.schools[school].majors, '.education-entry:last');
         }
 
         $('#education').append(HTMLonlineClasses);
