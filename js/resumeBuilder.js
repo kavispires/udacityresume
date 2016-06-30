@@ -118,20 +118,15 @@ var work = {
         "description": "Did other bunch of things there."
     }],
     "display": function() {
-        for (var job in work.jobs) {
-            if (work.jobs.hasOwnProperty(job)) {
-                $('#workExperience').append(HTMLworkStart);
+        work.jobs.forEach(function(val) {
+            $('#workExperience').append(HTMLworkStart);
 
-                var formattedEmployer = HTMLworkEmployer.replace('%data%', work.jobs[job].employer);
-                var formattedTitle = HTMLworkTitle.replace('%data%', work.jobs[job].title);
-                var formattedEmployerTitle = formattedEmployer + formattedTitle;
-                $('.work-entry:last').append(formattedEmployerTitle);
+            $('.work-entry:last').append(HTMLworkEmployer.replace('%data%', val.employer) + HTMLworkTitle.replace('%data%', val.title));
 
-                replaceHelper(HTMLworkDates, work.jobs[job].dates, '.work-entry:last');
-                replaceHelper(HTMLworkLocation, work.jobs[job].location, '.work-entry:last');
-                replaceHelper(HTMLworkDescription, work.jobs[job].description, '.work-entry:last');
-            }
-        }
+            replaceHelper(HTMLworkDates, val.dates, '.work-entry:last');
+            replaceHelper(HTMLworkLocation, val.location, '.work-entry:last');
+            replaceHelper(HTMLworkDescription, val.description, '.work-entry:last');
+        });
     }
 };
 
